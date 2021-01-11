@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>this is home page</title>
+</head>
+<body>
+<section>
+
+<div class="card mr-3 ml-3">
+
+<div class="card-body">
+
+<h1 class="text-center">Your Patients</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email-Id</th>
+      <th scope="col">Phone</th>
+      <th scope="col">operation</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+   <tr th:each="p:${patients}">
+   
+      <th scope="row" th:text="${'CVPD2020'+p.PatientId}">1</th>
+      
+      <td>
+      <img src=""   class="my_profile_picture" th:src="@{'/img/'+${p.image}}" alt="profile photo" />
+      
+      <span th:text="${p.name}"></span></td>
+      
+      <td>
+      
+      <a href="#" th:href="@{'/hospital/'+${p.PatientId}+'/patient'}">
+      
+      
+      <span th:text="${p.email}"></span>
+      
+      
+      
+      
+      
+      </a>
+      
+      
+      </td>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <td th:text="${p.phone}">@mdo</td>
+      
+      <td th:text="${p.opertion}">@mdo</td>
+       <td>
+       
+       
+       <a href="#"  th:onclick="|deletePatient(${p.PatientId})|"  class="btn btn-danger btn-sm">Delete</a>
+       
+       <form method="post" th:action="@{'/hospital/update-patient/'+${p.PatientId}}" class="mt-2">
+       
+        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+        
+       </form>
+       </td>
+    </tr>
+    
+  
+  </tbody>
+</table>
+
+
+<!-- pagination part -->
+
+<nav aria-label="Page navigation example">
+
+  <ul class="pagination">
+  
+    <li th:if="${currentPage !=0}"class="page-item"><a th:href="@{'/hospital/show-patients/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
+    
+    
+    
+    
+    
+    
+    <li th:classappend="${currentPage==i-1?'active':''}" th:each="i: ${#numbers.sequence(1,totalPages)}" class="page-item"><a th:href="@{'/hospital/show-patients/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+    
+   
+    <li th:if="${currentPage+1 != totalPages}"class="page-item"><a  th:href="@{'/hospital/show-patients/'+${currentPage+1}}" class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+</div>
+
+
+
+
+
+</div>
+</section>
+</body>
+</html>
